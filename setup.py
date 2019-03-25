@@ -42,5 +42,5 @@ setup(
     tests_require=test_requirements,
     url='https://github.com/armandgiraud/autosuggest',
     version='0.1.0',
-    zip_safe=False,
+    zip_safe=True,
 )
