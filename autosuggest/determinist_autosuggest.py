@@ -1,22 +1,27 @@
 import re
+import os
 from collections import Counter, defaultdict
 from itertools import chain
 
-link_path = "./data/data_processed_clean.txt"
-stops_path = "./data/stops.txt"
-
 def load_titles(link_path):
+    if not link_path:
+        dir_path = os.path.dirname(os.path.abspath(__file__))
+        link_path = os.path.join(dir_path, "data/data_processed_fixed.txt")
+
     with open(link_path, encoding = "utf-8") as f:
         d = f.read().splitlines()
     return d
 
 def load_stops(stops_path):
+    if not stops_path:
+        dir_path = os.path.dirname(os.path.abspath(__file__))
+        stops_path = os.path.join(dir_path, "data/stops.txt")
     with open(stops_path, encoding = "utf-8") as f:
         stops = f.read().splitlines()
     return stops
 
 class autoSuggestor:
-    def __init__(self, link_path, stops_path, build_precount = True):
+    def __init__(self, link_path = None, stops_path = None, build_precount = True):
         self.titles = load_titles(link_path)
         self.stops = load_stops(stops_path)
         self._build_dict()
@@ -25,7 +30,7 @@ class autoSuggestor:
             self._init_precount()
         else:
             self.precount = {}
-    
+
     def _build_dict(self, n = 4):
         """making a hashtable tree search with the first 4 characters"""
 
