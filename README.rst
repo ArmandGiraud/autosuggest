@@ -31,14 +31,17 @@ Features
 
 * Basic usage:
 
-```python
+.. code-block:: python
+
+    pygments_style = 'sphinx'
+
 from autosuggest import autoSuggestor, maybe_download
 
 secret_url = SECRET
 maybe_download(secret_url) # download necessary data
 auto = autoSuggestor(link_path, stops_path, build_precount = False) # use precount = False for fast instanciation
 auto.auto_suggest_fast("co")
-```
+
 
 Credits
 -------
