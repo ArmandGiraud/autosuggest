@@ -6,7 +6,6 @@ from itertools import chain
 def load_titles(link_path):
     """read default path if data file not given"""
     if not link_path:
-        raise NotImplementedError
         dir_path = os.path.dirname(os.path.abspath(__file__))
         link_path = os.path.join(dir_path, "data/data_processed_fixed.txt")
     with open(link_path, encoding = "utf-8") as f:
@@ -23,10 +22,8 @@ def load_stops(stops_path):
     return stops
 
 class autoSuggestor:
-    def __init__(self, link_path1 = None, link_path2 = None, stops_path = None, build_precount = True):
-        titles1, titles2 = load_titles(link_path1) , load_titles(link_path1)
-
-        self.titles = titles1 + titles2
+    def __init__(self, link_path = None, stops_path = None, build_precount = True):
+        self.titles = load_titles(link_path)
         self.stops = load_stops(stops_path)
         self._build_dict()
 
