@@ -3,7 +3,7 @@
 import urllib.request as urllib
 import os
 
-SAVE_PATH = "data/data_processed_fixed.txt"
+SAVE_PATH = "autosuggest/data/data_processed_fixed.txt" # the maybe_download will be run from the __init__ in first level folder
 data_dir = os.path.abspath(os.path.join(__file__, os.pardir))
 SAVE_PATH = os.path.join(data_dir, SAVE_PATH)
 
