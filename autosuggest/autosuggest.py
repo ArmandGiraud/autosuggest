@@ -16,6 +16,6 @@ if __name__ == "__main__":
     maybe_download(url)
     auto = autoSuggestor(build_precount = False)
 
-    prefix  = "con"
+    prefix = "con"
     suggestions = auto.auto_suggest_fast(prefix)
     print(suggestions)
