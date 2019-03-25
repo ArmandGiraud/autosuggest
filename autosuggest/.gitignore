@@ -1,2 +1,7 @@
 __pycache__/*
 data/data_processed_fixed.txt
+
+# PyCharm
+.idea
+
+.DS_Store
