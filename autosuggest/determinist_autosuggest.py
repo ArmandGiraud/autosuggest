@@ -42,7 +42,7 @@ class AutoSuggestor:
 
         self._build_dict(pre_hash_maxlen)
         if build_precount:
-            self._init_precount(build_precount)
+            self._init_precount(self._pcl)
 
     def _build_dict(self, n=4):
         """making a hashtable tree search with the first 4 characters"""
@@ -68,6 +68,7 @@ class AutoSuggestor:
             precount[char] = self.auto_suggest_skip(char)
         
         self.precount = precount
+        self._pcl = precount_length
     
     def auto_suggest(self, pref, n: int = 10, freq_min: int = 2):
         """old version without trailing stopwords"""
