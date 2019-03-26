@@ -3,6 +3,7 @@ from pathlib import Path
 from itertools import combinations
 from string import ascii_lowercase
 
+<<<<<<< HEAD
 from .resources import get_resource
 
 
@@ -10,6 +11,25 @@ DEFAULTS = {
     'queries': 'queries.txt',
     'stops': 'stops.txt'
 }
+=======
+def load_titles(link_path):
+    """read default path if data file not given"""
+    if not link_path:
+        dir_path = os.path.dirname(os.path.abspath(__file__))
+        link_path = os.path.join(dir_path, "data/data_processed_fixed.txt")
+    with open(link_path, encoding = "utf-8") as f:
+        d = f.read().splitlines()
+    return d
+
+def load_stops(stops_path):
+    """read default path if data file not given"""
+    if not stops_path:
+        dir_path = os.path.dirname(os.path.abspath(__file__))
+        stops_path = os.path.join(dir_path, "data/stops.txt")
+    with open(stops_path, encoding = "utf-8") as f:
+        stops = f.read().splitlines()
+    return stops
+>>>>>>> master
 
 
 def load_queries(queries_path=None):
@@ -75,7 +95,7 @@ class AutoSuggestor:
         len_pref = len(pref.split())
         suggestions = [t for t in self.queries if t.startswith(pref.lower())]
         most_common = Counter([" ".join(sg.split()[:(len_pref + 2)]) for sg in suggestions]).most_common(n)
-        return [(m[0], m[1] ) for m in most_common if m[1] > freq_min]
+        return [(m[0], m[1]) for m in most_common if m[1] > freq_min]
 
     def auto_suggest_skip(self, pref, n: int = 10, freq_min: int = 5, nb_next_words: int = 2):
         # function to suggest next words in user query, skipping stopwords
