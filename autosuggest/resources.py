@@ -10,7 +10,7 @@ from pathlib import Path
 import shutil
 
 
-PKG_NAME_ = Path(__file__).parent.parent.name
+PKG_NAME_ = Path(__file__).parent.name
 
 
 # ==========================
