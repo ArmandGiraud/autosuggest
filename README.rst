@@ -25,6 +25,7 @@ suggest requests from prefix for code du travail numérique
 Install
 --------
 ```pip install .```
+``pip install git+https://github.com/ArmandGiraud/autosuggest.git``
 
 Features
 --------

@@ -4,11 +4,11 @@ import os
 
 # from string import ascii_lowercase
 
-sys.path.insert(0, "../autocomplete/")
+sys.path.insert(0, "../autosuggest/")
 
-link_path = "./autocomplete/data/data_processed_test.txt"
-real_link_path = "./autocomplete/data/data_processed_clean.txt"
-stops_path = "./autocomplete/data/stops.txt"
+link_path = "./autosuggest/data/data_processed_test.txt"
+real_link_path = "./autosuggest/data/data_processed_fixed.txt"
+stops_path = "./autosuggest/data/stops.txt"
 
 from autosuggest.determinist_autosuggest import AutoSuggestor, load_stops, load_queries
 

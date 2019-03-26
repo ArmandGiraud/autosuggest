@@ -3,7 +3,6 @@ from pathlib import Path
 from itertools import combinations
 from string import ascii_lowercase
 
-<<<<<<< HEAD
 from .resources import get_resource
 
 
@@ -11,26 +10,6 @@ DEFAULTS = {
     'queries': 'queries.txt',
     'stops': 'stops.txt'
 }
-=======
-def load_titles(link_path):
-    """read default path if data file not given"""
-    if not link_path:
-        dir_path = os.path.dirname(os.path.abspath(__file__))
-        link_path = os.path.join(dir_path, "data/data_processed_fixed.txt")
-    with open(link_path, encoding = "utf-8") as f:
-        d = f.read().splitlines()
-    return d
-
-def load_stops(stops_path):
-    """read default path if data file not given"""
-    if not stops_path:
-        dir_path = os.path.dirname(os.path.abspath(__file__))
-        stops_path = os.path.join(dir_path, "data/stops.txt")
-    with open(stops_path, encoding = "utf-8") as f:
-        stops = f.read().splitlines()
-    return stops
->>>>>>> master
-
 
 def load_queries(queries_path=None):
     if queries_path is None:
