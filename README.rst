@@ -34,14 +34,15 @@ Features
 
 .. code-block:: python
 
-   from autosuggest import autoSuggestor, maybe_download
+   from autosuggest import AutoSuggestor
 
-    secret_url = SECRET
-    maybe_download(secret_url) # download necessary data
     auto = autoSuggestor(build_precount = False) # use precount = False for fast instanciation
     auto.auto_suggest_fast("co")
 
+Test
+----
 
+python -m unittest discover tests
 
 Credits
 -------
