@@ -2,7 +2,7 @@ import unittest
 import sys
 import os
 
-from string import ascii_lowercase
+# from string import ascii_lowercase
 
 sys.path.insert(0, "../autocomplete/")
 
@@ -10,7 +10,8 @@ link_path = "./autocomplete/data/data_processed_test.txt"
 real_link_path = "./autocomplete/data/data_processed_clean.txt"
 stops_path = "./autocomplete/data/stops.txt"
 
-from autocomplete.determinist_autosuggest import autoSuggestor, load_stops, load_titles
+from autosuggest.determinist_autosuggest import AutoSuggestor, load_stops, load_queries
+
 
 class TestSuggestor(unittest.TestCase):
     def __init__(self, *args, **kwargs):
@@ -22,8 +23,8 @@ class TestSuggestor(unittest.TestCase):
         self.assertTrue(testBool, msg='obj lacking an attribute. obj: %s, intendedAttr: %s' % (obj, intendedAttr))
 
     def test_instance(self):
-        self.auto = autoSuggestor(link_path, stops_path)
-        self.assertHasAttr(self.auto, "titles")
+        self.auto = AutoSuggestor(link_path, stops_path)
+        self.assertHasAttr(self.auto, "queries")
         self.assertHasAttr(self.auto, "stops")
 
         self.assertHasAttr(self.auto, "d") # dictionnary for tree search
@@ -72,7 +73,7 @@ class TestLoader(unittest.TestCase):
     
     def test_load(self):
         stops = load_stops(stops_path)
-        titles = load_titles(link_path)
+        titles = load_queries(link_path)
         self.assertIsInstance(stops, list)
         self.assertIsInstance(titles, list)
 
