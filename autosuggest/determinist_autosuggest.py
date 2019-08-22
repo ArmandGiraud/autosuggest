@@ -128,12 +128,13 @@ class AutoSuggestor:
         else:
             return [m[0] for m in most_common if m[1] > freq_min]
 
-    def suggest_content(self, prefix: str, titles: list_str, n=10):
+    def suggest_content(self, prefix: str, n=10):
         """suggest actual website content from a list of documents titles
         args:
         prefix: user prefix in search bar
         title: list of documents titles to suggest from
-        n: number of suggestions to return"""
+        n: number of suggestions to return
+        return list of string titles"""
 
         try:
             self.content
