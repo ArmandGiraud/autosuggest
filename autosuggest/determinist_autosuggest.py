@@ -2,13 +2,16 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from itertools import combinations
 from string import ascii_lowercase
+from typing import List
 
 from .resources import get_resource
 
+list_str = List[str] # typing util
 
 DEFAULTS = {
     'queries': 'queries.txt',
-    'stops': 'stops.txt'
+    'stops': 'stops.txt',
+    'content': 'content.txt'
 }
 
 def load_queries(queries_path=None):
@@ -28,14 +31,32 @@ def load_stops(stops_path=None):
 
     return stops_path.read_text(encoding='utf-8').splitlines()
 
+def load_content(content_path=None):
+    if content_path is None:
+        content_path = get_resource(DEFAULTS["content"])
+    else:
+        content_path = Path(content_path).expanduser().resolve()
+
+    return content_path.read_text(encoding='utf-8').splitlines()
 
 class AutoSuggestor:
-    def __init__(self, queries_path=None, stops_path=None, build_precount: int = 2, pre_hash_maxlen: int = 4):
+    def __init__(self, queries_path=None,
+                       stops_path=None,
+                       content_path=None,
+                       build_precount: int = 2,
+                       pre_hash_maxlen: int = 4):
         self.queries = load_queries(queries_path)
         self.stops = load_stops(stops_path)
+
+        # add content if path is provided
+
+        if content_path is not None:
+            self.content = load_content(content_path)
+
         self.precount = {}
         # defaults to 2 (when `build_precount` is True)
         self._pcl = (2 if build_precount else 0) if isinstance(build_precount, bool) else build_precount
+
         self.d = defaultdict(list)
         self._phml = None
 
@@ -89,7 +110,7 @@ class AutoSuggestor:
         most_common = Counter([" ".join(sg) for sg in suggest_]).most_common(n)
         return [(m[0], m[1]) for m in most_common if m[1] > freq_min]
     
-    def auto_suggest_fast(self, pref, n: int = 10, freq_min: int = 2, nb_next_words: int = 2, return_freq: int = True):
+    def auto_suggest_fast(self, pref, n: int = 10, freq_min: int = 2, nb_next_words: int = 2, return_freq: bool = True):
         """faster version with pre-computing, hashtable research, and trailing stopwords skip"""
         if pref == "":
             return [[], []]
@@ -106,3 +127,18 @@ class AutoSuggestor:
             return [(m[0], m[1]) for m in most_common if m[1] > freq_min]
         else:
             return [m[0] for m in most_common if m[1] > freq_min]
+
+    def suggest_content(self, prefix: str, titles: list_str, n=10):
+        """suggest actual website content from a list of documents titles
+        args:
+        prefix: user prefix in search bar
+        title: list of documents titles to suggest from
+        n: number of suggestions to return"""
+
+        try:
+            self.content
+        except ValueError:
+            print("No content titles were found: check if path was provided")
+                
+        return [t for t in self.content if prefix.lower() in t.lower()][:n]
+        
