@@ -3,6 +3,7 @@ from pathlib import Path
 from itertools import combinations
 from string import ascii_lowercase
 from typing import List
+from random import shuffle
 
 from .resources import get_resource
 
@@ -51,8 +52,9 @@ class AutoSuggestor:
         # add content if path is provided
 
         if content_path is not None:
-            self.content = load_content(content_path)
-
+            content = load_content(content_path)
+            shuffle(content)
+            self.content = content 
         self.precount = {}
         # defaults to 2 (when `build_precount` is True)
         self._pcl = (2 if build_precount else 0) if isinstance(build_precount, bool) else build_precount
@@ -136,6 +138,8 @@ class AutoSuggestor:
         n: number of suggestions to return
         return list of string titles"""
 
+        if prefix in ["", " "]:
+            return []
         try:
             self.content
         except ValueError:
